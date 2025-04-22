@@ -33,6 +33,7 @@ class AlienInvasion:
             self._check_events()
             self.ship.update()
             self._update_bullets()
+            self._update_aliens()
             self._update_screen()
             self.clock.tick(60)
 
@@ -80,6 +81,9 @@ class AlienInvasion:
             if bullet.rect.bottom <= 0:
                 self.bullets.remove(bullet)
 
+    def _update_aliens(self):
+        """更新外星舰队中所有外星人的位置"""            
+        self.aliens.update()
     def _create_fleet(self):
         """创建一个外形舰队"""
         # 创建一个外星人，再不断添加，直到没有空间添加外星人为止
