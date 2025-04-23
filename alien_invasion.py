@@ -32,6 +32,10 @@ class AlienInvasion:
         self.aliens = pygame.sprite.Group()
 
         self._create_fleet()
+
+        # 游戏启动后处于活动状态
+        self.game_active = True
+
     def run_game(self):
         """开始游戏的主循环"""
         while True:
@@ -98,19 +102,22 @@ class AlienInvasion:
 
     def _ship_hit(self):
         """响应飞船和外星人的碰撞"""
-        # 将ships_left减1
-        self.stats.ships_left -= 1
+        if self.stats.ships_left > 0:
+            # 将ships_left减1
+            self.stats.ships_left -= 1
 
-        # 清空外星人列表和子弹列表
-        self.bullets.empty()
-        self.aliens.empty()
+            # 清空外星人列表和子弹列表
+            self.bullets.empty()
+            self.aliens.empty()
 
-        # 创建一个新的外星舰队，并将飞船放在屏幕底部的中央
-        self._create_fleet()
-        self.ship.center_ship()
+            # 创建一个新的外星舰队，并将飞船放在屏幕底部的中央
+            self._create_fleet()
+            self.ship.center_ship()
 
-        # 暂停
-        sleep(0.5)
+            # 暂停
+            sleep(0.5)
+        else:
+            self.game_active = False    
 
     def _check_aliens_bottom(self):
         """检查是否有外星人到达了屏幕的下边缘"""
