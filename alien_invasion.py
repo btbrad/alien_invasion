@@ -77,6 +77,7 @@ class AlienInvasion:
             # 重置游戏的统计信息
             self.stats.reset_stats()
             self.sb.prep_score()
+            self.sb.prep_level()
 
             self.game_active = True
 
@@ -141,7 +142,11 @@ class AlienInvasion:
             # 删除现有的子弹并创建一个新的外星舰队
             self.bullets.empty()
             self._create_fleet()
-            self.settings.increase_speed()   
+            self.settings.increase_speed() 
+
+            # 提高等级
+            self.stats.level += 1  
+            self.sb.prep_level()
 
     def _ship_hit(self):
         """响应飞船和外星人的碰撞"""
